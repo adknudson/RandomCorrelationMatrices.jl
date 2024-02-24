@@ -24,11 +24,11 @@ julia> r = randcormatrix(n, η)
   0.27138    0.281755  1.0        0.249834
  -0.105909  -0.107723  0.249834   1.0
 
-julia> s = 1000; ranges = zeros(Float64, s);
+julia> ranges = zeros(Float64, 1000);
 
-julia> for i in 1:s
+julia> for i in eachindex(ranges)
            r = randcormatrix(n, η)
-           r0 = r - Diagonal(r)
+           r0 = r - Diagonal(r) # gets rid of diagonal elements which are all 1's
            ranges[i] = maximum(r0) - minimum(r0)
         end;
 
@@ -41,11 +41,11 @@ julia> median(ranges)
 julia> η = 32
 32
 
-julia> s = 1000; ranges = zeros(Float64, s);
+julia> ranges = zeros(Float64, 1000);
 
-julia> for i in 1:s
+julia> for i in eachindex(ranges)
            r = randcormatrix(n, η)
-           r0 = r - Diagonal(r)
+           r0 = r - Diagonal(r) # gets rid of diagonal elements which are all 1's
            ranges[i] = maximum(r0) - minimum(r0)
         end;
 
