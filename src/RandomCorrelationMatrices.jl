@@ -5,6 +5,10 @@ module RandomCorrelationMatrices
 using LinearAlgebra: cholesky, diag, norm
 using Distributions: Beta
 
+
+export randcormatrix, randcovmatrix
+
+
 """
     randcormatrix(d, η)
 
