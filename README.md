@@ -56,6 +56,25 @@ julia> median(ranges)
 0.3087574323261617
 ```
 
+Below is an example showing how to generate a covariance matrix
+
+```julia-repl
+julia> σ = [100, 200, 300, 400, 500];
+
+julia> n = length(σ)
+5
+
+julia> η = 10;
+
+julia> randcovmatrix(n, η, σ)
+5×5 Matrix{Float64}:
+ 10000.0    -3506.58    5461.39   16673.6    -1129.93
+ -3506.58   40000.0   -11972.9    -6078.8   -13199.7
+  5461.39  -11972.9    90000.0    -6982.46  -10392.4
+ 16673.6    -6078.8    -6982.46  160000.0    57847.9
+ -1129.93  -13199.7   -10392.4    57847.9   250000.0
+```
+
 ## Contributing
 
 Pull requests welcome for additional methods of generating random correlation matrices that are described in the literature.
