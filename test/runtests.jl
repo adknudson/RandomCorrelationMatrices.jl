@@ -1,9 +1,9 @@
-import LinearAlgebra: cholesky, diag, Diagonal, Hermitian
-import Printf: @printf
-import Random
-import Statistics: mean, median, std
 using Test
-import RandomCorrelationMatrices
+using LinearAlgebra: cholesky, diag, Diagonal, Hermitian
+using Printf: @printf
+using Random
+using Statistics: mean, median, std
+using RandomCorrelationMatrices
 
 # This is not a numerical test. The code just generates some examples.
 # However, if it fails to run, thats a good sign something is wrong.
