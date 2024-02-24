@@ -8,37 +8,54 @@ Generate random correlation matrices, for some definition of random. Currently s
 
 This package has two functions, `randcormatrix(d, η)` and `randcovmatrix(d, η, σ)` . `d` is the dimension, and `η` is a parameter that controls the distribution of the off-diagonal terms. `randcovmatrix` is used to generate a covariance matrix from the output of `randcormatrix`, where the standard deviation of each component is controlled by `σ`.
 
-To get a feel for how to set `η`, consider the following output from `test/runtests.jl`, which shows some example matrices and the average range of off-diagonals:
+## Example Usage
 
+To get a feel for how to set `η`, consider the following output, which shows some example matrices and the average range of off-diagonals:
+
+```julia-repl
+julia> using Statistics, LinearAlgebra
+
+julia> n = 4; η = 2;
+
+julia> r = randcormatrix(n, η)
+4×4 Matrix{Float64}:
+  1.0        0.58787   0.27138   -0.105909
+  0.58787    1.0       0.281755  -0.107723
+  0.27138    0.281755  1.0        0.249834
+ -0.105909  -0.107723  0.249834   1.0
+
+julia> s = 1000; ranges = zeros(Float64, s);
+
+julia> for i in 1:s
+           r = randcormatrix(n, η)
+           r0 = r - Diagonal(r)
+           ranges[i] = maximum(r0) - minimum(r0)
+        end;
+
+julia> mean(ranges)
+0.9431632935736379
+
+julia> median(ranges)
+0.944170516935672
+
+julia> η = 32
+32
+
+julia> s = 1000; ranges = zeros(Float64, s);
+
+julia> for i in 1:s
+           r = randcormatrix(n, η)
+           r0 = r - Diagonal(r)
+           ranges[i] = maximum(r0) - minimum(r0)
+        end;
+
+julia> mean(ranges)
+0.3116603248881609
+
+julia> median(ranges)
+0.3087574323261617
 ```
-η => 2
- 1.00  0.07  0.59  0.78
- 0.07  1.00  0.28 -0.03
- 0.59  0.28  1.00  0.69
- 0.78 -0.03  0.69  1.00
-mean(ranges) => 0.9609607012737842
-median(ranges) => 0.9522641114303307
-η => 8
- 1.00 -0.24  0.15  0.18
--0.24  1.00 -0.10 -0.06
- 0.15 -0.10  1.00  0.02
- 0.18 -0.06  0.02  1.00
-mean(ranges) => 0.5846747844778034
-median(ranges) => 0.5787807331445632
-η => 32
- 1.00 -0.06  0.08 -0.11
--0.06  1.00 -0.05  0.12
- 0.08 -0.05  1.00 -0.14
--0.11  0.12 -0.14  1.00
-mean(ranges) => 0.3094525766085337
-median(ranges) => 0.3050648782864559
-η => 128
- 1.00  0.05 -0.00 -0.02
- 0.05  1.00 -0.05  0.07
--0.00 -0.05  1.00  0.03
--0.02  0.07  0.03  1.00
-mean(ranges) => 0.15721653854980638
-median(ranges) => 0.15120529987720227
-```
+
+## Contributing
 
 Pull requests welcome for additional methods of generating random correlation matrices that are described in the literature.
